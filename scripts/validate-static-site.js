@@ -6,9 +6,12 @@ for (const file of requiredFiles) {
   }
 }
 const html = fs.readFileSync('index.html', 'utf8');
-for (const phrase of ['A-to-Z daily needs', 'India map AI coverage', 'Air ambulance']) {
+if (html.includes('href="src/styles.css"') || html.includes('src="src/main.js"')) {
+  throw new Error('Critical CSS and JS must be inline for GitHub Pages reliability.');
+}
+for (const phrase of ['Everything you need, delivered beautifully', 'India map AI', 'Air ambulance and medic care', 'Add to cart']) {
   if (!html.includes(phrase)) {
     throw new Error(`Missing required content: ${phrase}`);
   }
 }
-console.log('Static AeroSell site validation passed.');
+console.log('Static AeroSell ecommerce validation passed.');
