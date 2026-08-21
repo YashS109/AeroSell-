@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AeroSell AI Commerce</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <nav class="nav"><div class="brand">✈️ AeroSell</div><a href="#emergency">Air ambulance</a></nav>
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">✨ AI commerce for every pin code in India</p>
+            <h1>A-to-Z daily needs delivered by agents, drones, and emergency air support.</h1>
+            <p class="lead">AeroSell connects rural and urban India to groceries, medicines, electronics, food, farm supplies, and urgent medical care from one intelligent marketplace.</p>
+            <div class="search-box"><span>🔎</span><input id="needSearch" placeholder="Search needs: food, medicine, electronics..." /><button>Ask AI</button></div>
+          </div>
+          <div class="hero-card">
+            <div class="icon">🤖</div><h2>Smart need prediction</h2>
+            <p>AI recommends essentials by family size, season, location, budget, local festivals, health alerts, and past buying patterns.</p>
+            <div class="status">⚡ Fast lane: 10–30 min urban dispatch</div>
+            <div class="status">🚁 Drone route: remote-area drop planning</div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-title"><p class="eyebrow">🛒 Everything at one site</p><h2>Daily life problem solver marketplace</h2></div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </section>
+      <section class="section split">
+        <div><p class="eyebrow">🤖 AI item suggestions</p><h2>Personal baskets built before users run out.</h2><p>Recommendation cards turn everyday problems into ready-to-order kits for households, students, farmers, patients, and small businesses.</p></div>
+        <div class="cards">
+          <article class="suggestion"><span>AI suggested</span><h3>Monsoon health kit</h3><p>ORS, fever medicine, mosquito repellent, power bank</p></article>
+          <article class="suggestion"><span>Rural ready</span><h3>Remote village staples</h3><p>Rice, dal, cooking oil, sanitary products, water purifier candle</p></article>
+          <article class="suggestion"><span>Fast delivery</span><h3>Same-day family basket</h3><p>Milk, bread, fruits, vegetables, snacks, first-aid refill</p></article>
+        </div>
+      </section>
+      <section class="section map-section">
+        <div><p class="eyebrow">📍 India map AI coverage</p><h2>Urban speed plus rural reach.</h2><p>Plan agent delivery for streets and drone delivery for villages, mountains, islands, and areas where roads or riders cannot reliably reach.</p><div class="coverage-list" id="cities"></div><div class="coverage-list rural" id="ruralZones"></div></div>
+        <div class="india-map" aria-label="AI coverage map of India"><div class="pin north">Leh</div><div class="pin west">Jaipur</div><div class="pin center">Bhopal</div><div class="pin east">Guwahati</div><div class="pin south">Chennai</div></div>
+      </section>
+      <section class="section fast"><p class="eyebrow">⚡ Separate fast delivery section</p><h2>Priority dispatch for urgent daily needs.</h2><div class="fast-grid"><article>Hot food and groceries</article><article>Prescription pickup</article><article>Device chargers and emergency electronics</article><article>Baby, elder, and hygiene essentials</article></div></section>
+      <section class="section emergency" id="emergency"><div><p class="eyebrow">➕ Medical and life-saving services</p><h2>Air ambulance, medic care, and critical supply routing.</h2><p>Dedicated emergency workflows coordinate doctors, paramedics, medicine drops, oxygen, blood sample pickup, and air ambulance escalation for hard-to-reach regions.</p></div><button>🚑 Request emergency care</button></section>
+    </main>
+    <script src="src/main.js"></script>
+  </body>
+</html>
