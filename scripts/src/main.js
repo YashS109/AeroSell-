@@ -1,60 +1,27 @@
-const products = [
-        { name: 'Fresh family grocery basket', category: 'Groceries', icon: '🥦', price: '₹699', tag: 'Daily need' },
-        { name: 'Prescription medicine refill', category: 'Medicines', icon: '💊', price: '₹249', tag: 'Priority' },
-        { name: 'Emergency charger kit', category: 'Electronics', icon: '🔌', price: '₹899', tag: 'Fast lane' },
-        { name: 'Hot meal combo', category: 'Food', icon: '🍛', price: '₹189', tag: '30 min' },
-        { name: 'Baby care essentials', category: 'Baby Care', icon: '🍼', price: '₹549', tag: 'Family' },
-        { name: 'Farm seed and tool kit', category: 'Farm', icon: '🌾', price: '₹1,299', tag: 'Rural' },
-        { name: 'Home hygiene pack', category: 'Home', icon: '🧼', price: '₹399', tag: 'Monthly' },
-        { name: 'Pet food bundle', category: 'Pet Care', icon: '🐾', price: '₹459', tag: 'A-to-Z' }
+const products=[
+        {id:'veg',name:'Fresh vegetable basket',category:'Groceries',price:299,tag:'10 min',img:'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=80'},
+        {id:'fruit',name:'Seasonal fruit box',category:'Groceries',price:349,tag:'Fresh',img:'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=640&q=80'},
+        {id:'milk',name:'Milk, bread and eggs',category:'Groceries',price:189,tag:'Morning',img:'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=640&q=80'},
+        {id:'medicine',name:'Prescription refill pack',category:'Medicines',price:249,tag:'Priority',img:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=640&q=80'},
+        {id:'firstaid',name:'First-aid emergency kit',category:'Medicines',price:499,tag:'Medic',img:'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=640&q=80'},
+        {id:'meal',name:'Hot meal family combo',category:'Food',price:399,tag:'Fast lane',img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=640&q=80'},
+        {id:'charger',name:'Charger and cable kit',category:'Electronics',price:799,tag:'Same day',img:'https://images.unsplash.com/photo-1603539444875-76e7684265f6?auto=format&fit=crop&w=640&q=80'},
+        {id:'powerbank',name:'Emergency power bank',category:'Electronics',price:1299,tag:'Power',img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=640&q=80'},
+        {id:'baby',name:'Baby care essentials',category:'Baby Care',price:549,tag:'Family',img:'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=640&q=80'},
+        {id:'home',name:'Home hygiene pack',category:'Home',price:399,tag:'Monthly',img:'https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=640&q=80'},
+        {id:'farm',name:'Farm seed and tool kit',category:'Farm',price:1299,tag:'Rural',img:'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=640&q=80'},
+        {id:'pet',name:'Pet food bundle',category:'Pet Care',price:459,tag:'A-to-Z',img:'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=640&q=80'}
       ];
-      const coverage = ['Delhi NCR', 'Mumbai', 'Bengaluru', 'Kolkata', 'Chennai', 'Hyderabad', 'Ahmedabad', 'Jaipur', 'Guwahati', 'Leh', 'Ranchi', 'Bhopal', 'Himalayan hamlets', 'Desert villages', 'Island communities', 'Forest belts'];
-      const productGrid = document.getElementById('productGrid');
-      const filters = document.getElementById('categoryFilters');
-      const toast = document.getElementById('cartToast');
-      const categories = ['All', ...new Set(products.map((product) => product.category))];
-
-      function renderProducts(category = 'All', query = '') {
-        const visibleProducts = products.filter((product) => {
-          const matchesCategory = category === 'All' || product.category === category;
-          const matchesQuery = `${product.name} ${product.category} ${product.tag}`.toLowerCase().includes(query.toLowerCase());
-          return matchesCategory && matchesQuery;
-        });
-        productGrid.innerHTML = visibleProducts.map((product, index) => `
-          <article class="product-card" style="animation-delay:${index * 70}ms">
-            <div class="product-art">${product.icon}</div>
-            <div class="product-body">
-              <span class="badge">${product.tag}</span>
-              <h3>${product.name}</h3>
-              <p class="muted">${product.category} delivered through AeroSell agent, fast lane, or drone routing.</p>
-              <div class="product-meta"><span>${product.price}</span><span>⭐ 4.9</span></div>
-              <button class="add-btn" data-product="${product.name}">Add to cart</button>
-            </div>
-          </article>
-        `).join('');
-      }
-
-      function renderFilters(active = 'All') {
-        filters.innerHTML = categories.map((category) => `<button class="chip ${category === active ? 'active' : ''}" data-category="${category}">${category}</button>`).join('');
-      }
-
-      renderProducts();
-      renderFilters();
-      document.getElementById('coverageList').innerHTML = coverage.map((place) => `<span>${place}</span>`).join('');
-
-      let activeCategory = 'All';
-      filters.addEventListener('click', (event) => {
-        const button = event.target.closest('[data-category]');
-        if (!button) return;
-        activeCategory = button.dataset.category;
-        renderFilters(activeCategory);
-        renderProducts(activeCategory, document.getElementById('needSearch').value);
-      });
-      document.getElementById('needSearch').addEventListener('input', (event) => renderProducts(activeCategory, event.target.value));
-      document.getElementById('searchForm').addEventListener('submit', (event) => event.preventDefault());
-      document.addEventListener('click', (event) => {
-        if (!event.target.matches('.add-btn')) return;
-        toast.textContent = `${event.target.dataset.product} added to Aero cart ✅`;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 1800);
-      });
+      const coverage=['Tier 1: Delhi NCR','Tier 1: Mumbai','Tier 1: Bengaluru','Tier 1: Chennai','Tier 1: Hyderabad','Tier 2: Lucknow','Tier 2: Jaipur','Tier 2: Indore','Tier 2: Patna','Tier 2: Nagpur','Tier 3: Kanpur Nagar','Tier 3: Ranchi','Tier 3: Guwahati','Tier 3: Bhopal','Tier 3: Leh','Rural: Himalayan hamlets','Rural: Desert villages','Rural: Island communities','Rural: Forest belts'];
+      const history=[{id:'AS-1007',items:'Groceries + medicines',status:'Delivered',total:948},{id:'AS-1008',items:'Baby care + milk',status:'In transit',total:738},{id:'AS-1009',items:'Drone rural staples',status:'Drone scheduled',total:1598}];
+      const kits={monsoon:['medicine','firstaid','powerbank'],rural:['veg','farm','home'],power:['charger','powerbank']};
+      let cart=[];let activeCategory='All';
+      const rupee=(value)=>`₹${value.toLocaleString('en-IN')}`;const $=(id)=>document.getElementById(id);function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+      function renderProducts(query=''){const filtered=products.filter(p=>(activeCategory==='All'||p.category===activeCategory)&&`${p.name} ${p.category} ${p.tag}`.toLowerCase().includes(query.toLowerCase()));$('productGrid').innerHTML=filtered.map((p,i)=>`<article class="product-card" style="animation-delay:${i*55}ms"><img src="${p.img}" alt="${p.name}"><div class="product-body"><span class="badge">${p.tag}</span><h3>${p.name}</h3><p class="muted">${p.category} with agent, fast, or drone delivery.</p><div class="product-meta"><span>${rupee(p.price)}</span><span>⭐ 4.9</span></div><div class="qty-row"><select id="qty-${p.id}"><option>1</option><option>2</option><option>3</option><option>4</option></select><button class="add-btn" data-add="${p.id}">Add to cart</button></div></div></article>`).join('')||'<div class="empty">No items found. Try another search.</div>'}
+      function renderFilters(){const cats=['All',...new Set(products.map(p=>p.category))];$('categoryFilters').innerHTML=cats.map(c=>`<button class="chip ${c===activeCategory?'active':''}" data-category="${c}">${c}</button>`).join('')}
+      function renderCart(){const count=cart.reduce((s,i)=>s+i.qty,0);const subtotal=cart.reduce((s,i)=>s+i.qty*i.price,0);const fee=subtotal?29:0;$('cartCount').textContent=count;$('subtotal').textContent=rupee(subtotal);$('deliveryFee').textContent=rupee(fee);$('grandTotal').textContent=rupee(subtotal+fee);$('cartItems').innerHTML=cart.length?cart.map(i=>`<div class="cart-item"><img src="${i.img}" alt="${i.name}"><div><b>${i.name}</b><br><small>${rupee(i.price)} × ${i.qty}</small></div><div class="cart-controls"><button class="tiny-btn" data-dec="${i.id}">−</button><b>${i.qty}</b><button class="tiny-btn" data-inc="${i.id}">+</button></div></div>`).join(''):'<div class="empty">Your cart is empty. Add groceries, medicines, food, or electronics.</div>'}
+      function renderOrders(){$('ordersGrid').innerHTML=history.map(o=>`<article class="order-card"><h3>${o.id}<span class="status">${o.status}</span></h3><p class="muted">${o.items}</p><div class="total-line"><span>Total</span><span>${rupee(o.total)}</span></div><button class="ghost-btn" data-reorder="${o.id}">Reorder</button></article>`).join('')}
+      function addToCart(id,qty=1){const p=products.find(x=>x.id===id);const item=cart.find(x=>x.id===id);item?item.qty+=qty:cart.push({...p,qty});renderCart();toast(`${p.name} added to cart ✅`)}
+      renderProducts();renderFilters();renderCart();renderOrders();$('coverageList').innerHTML=coverage.map(c=>`<span>${c}</span>`).join('');
+      document.addEventListener('click',(e)=>{const scroll=e.target.closest('[data-scroll]');if(scroll){$(scroll.dataset.scroll).scrollIntoView({behavior:'smooth'});return}const add=e.target.closest('[data-add]');if(add){addToCart(add.dataset.add,Number($(`qty-${add.dataset.add}`).value));return}const inc=e.target.closest('[data-inc]');if(inc){addToCart(inc.dataset.inc);return}const dec=e.target.closest('[data-dec]');if(dec){const item=cart.find(i=>i.id===dec.dataset.dec);if(item){item.qty--;if(item.qty<=0)cart=cart.filter(i=>i.id!==item.id);renderCart();toast('Cart updated')}}const cat=e.target.closest('[data-category]');if(cat){activeCategory=cat.dataset.category;renderFilters();renderProducts($('needSearch').value)}const kit=e.target.closest('[data-kit]');if(kit){kits[kit.dataset.kit].forEach(id=>addToCart(id));$('cart').scrollIntoView({behavior:'smooth'})}const reorder=e.target.closest('[data-reorder]');if(reorder){addToCart('veg');addToCart('medicine');$('cart').scrollIntoView({behavior:'smooth'});toast(`${reorder.dataset.reorder} added again`)}});
+      $('needSearch').addEventListener('input',e=>renderProducts(e.target.value));$('searchForm').addEventListener('submit',e=>{e.preventDefault();$('shop').scrollIntoView({behavior:'smooth'});toast('Showing matching items')});$('checkoutBtn').addEventListener('click',()=>{if(!cart.length){toast('Add items before placing an order');return}const total=cart.reduce((s,i)=>s+i.qty*i.price,0)+29;history.unshift({id:`AS-${1010+history.length}`,items:cart.map(i=>i.name).slice(0,2).join(' + '),status:'Order placed',total});cart=[];renderCart();renderOrders();$('orders').scrollIntoView({behavior:'smooth'});toast('Order placed successfully 🚀')});$('clearCartBtn').addEventListener('click',()=>{cart=[];renderCart();toast('Cart cleared')});$('emergencyCallBtn').addEventListener('click',()=>$('emergency').scrollIntoView({behavior:'smooth'}));$('panicBtn').addEventListener('click',()=>toast('Emergency request started. Call 1800-123-AERO now.'));
