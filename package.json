@@ -1,0 +1,10 @@
+{
+  "name": "aerosell-ai-commerce",
+  "version": "1.0.0",
+  "description": "AeroSell AI commerce platform for A-to-Z daily needs, drone delivery, and medical emergency services across India.",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 4173",
+    "build": "node scripts/validate-static-site.js"
+  }
+}
